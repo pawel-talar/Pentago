@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
     gameField = gtk_grid_new();
     gtk_container_add(GTK_CONTAINER(window), gameField);
 
-    createBoard(boardSize);
+    createBoard();
 
     g_signal_connect(G_OBJECT(window), "destroy",G_CALLBACK(endProgram), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(window), 100);

@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include "gamecomp.h"
 
-void createBoard(int n)
+void createBoard()
 {
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < boardSize; i++)
     {
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < boardSize; j++)
         {
             gameBoard[i][j] = 0;
             Board[i][j] = gtk_button_new_with_label(" ");
@@ -19,11 +19,11 @@ void createBoard(int n)
     }
 }
 
-void updateBoard(int n)
+void updateBoard()
 {
-    for(int i = 0; i < n; i++)
+    for(int i = 0; i < boardSize; i++)
     {
-        for(int j = 0; j < n; j++)
+        for(int j = 0; j < boardSize; j++)
         {
             if(gameBoard[i][j] == 1)
                 gtk_button_set_label(GTK_BUTTON(Board[i][j]), "X");

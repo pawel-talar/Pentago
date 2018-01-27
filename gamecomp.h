@@ -3,8 +3,8 @@
 
 #include <gtk/gtk.h>
 
-void createBoard(int n);
-void updateBoard(int n);
+void createBoard();
+void updateBoard();
 int choosenField(GtkWidget *widget, gpointer data);
 
 typedef struct{

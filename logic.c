@@ -13,6 +13,6 @@ int choosenField(GtkWidget *widget, gpointer data)
         printf("Pole zajete!\n");
     else
         gameBoard[i][j] = Player;
-    updateBoard(boardSize);
+    updateBoard();
     return 0;
 }
