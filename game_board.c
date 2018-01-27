@@ -1,4 +1,5 @@
 #include <gtk/gtk.h>
+#include <stdlib.h>
 #include "gamecomp.h"
 
 void createBoard(int n)
@@ -9,7 +10,10 @@ void createBoard(int n)
         {
             gameBoard[i][j] = 0;
             Board[i][j] = gtk_button_new_with_label(" ");
-
+            coordinates * current = malloc(sizeof(coordinates));
+            current->x = i;
+            current->y = j;
+            g_signal_connect(G_OBJECT(Board[i][j]), "clicked", G_CALLBACK(choosenField), current);
             gtk_grid_attach(GTK_GRID(gameField), GTK_WIDGET(Board[i][j]), j+1, i+1, 1, 1);
         }
     }
