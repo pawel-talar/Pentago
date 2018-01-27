@@ -1,6 +1,10 @@
-#include <gtk/gtk.h>
-#include <stdlib.h>
 #include "gamecomp.h"
+
+void initRotationButtons()
+{
+
+    gtk_box_pack_end()
+}
 
 void createBoard()
 {

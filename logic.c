@@ -1,18 +1,19 @@
-#include <gtk/gtk.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include "gamecomp.h"
 
-int choosenField(GtkWidget *widget, gpointer data)
+void choosenField(GtkWidget *widget, gpointer data)
 {
     coordinates * A = malloc(sizeof(coordinates));
     A = data;
     int i = A->x;
     int j = A->y;
-    if(gameBoard[i][j] == 1 || gameBoard[i][j] == 2)
+    if(moveStep == 2)
+        printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");
+    else if(gameBoard[i][j] == 1 || gameBoard[i][j] == 2)
         printf("Pole zajete!\n");
     else
+    {
         gameBoard[i][j] = Player;
+        moveStep = 2;
+    }
     updateBoard();
-    return 0;
 }
