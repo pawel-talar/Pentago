@@ -49,6 +49,8 @@ void updateBoard()
                 gtk_button_set_label(GTK_BUTTON(Board[i][j]), "X");
             else if(gameBoard[i][j] == 2)
                 gtk_button_set_label(GTK_BUTTON(Board[i][j]), "O");
+            else if(gameBoard[i][j] == 0)
+                gtk_button_set_label(GTK_BUTTON(Board[i][j]), " ");
         }
     }
 }
