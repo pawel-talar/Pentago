@@ -1,6 +1,7 @@
 #include "gamecomp.h"
 
 GtkWidget *window;
+GtkWidget *actionSurf;
 
 void endProgram(GtkWidget *widget, gpointer data)
 {
@@ -21,15 +22,17 @@ int main(int argc, char *argv[])
     gtk_window_set_title(GTK_WINDOW(window), header);
 
     gameField = gtk_grid_new();
+    actionSurf = gtk_box_new(GTK_ORIENTATION_VERTICAL, 2);
     upButtons = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
     downButtons = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 5);
 
-    gtk_container_add(GTK_CONTAINER(window), upButtons);
-    gtk_container_add(GTK_CONTAINER(window), gameField);
-    gtk_container_add(GTK_CONTAINER(window), downButtons);
-
-    createBoard();
     initRotationButtons();
+    createBoard();
+    gtk_box_pack_start(GTK_BOX(actionSurf), downButtons, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(actionSurf), gameField, TRUE, TRUE, 1);
+    gtk_box_pack_start(GTK_BOX(actionSurf), upButtons, TRUE, TRUE, 1);
+
+    gtk_container_add(window, actionSurf);
 
     g_signal_connect(G_OBJECT(window), "destroy",G_CALLBACK(endProgram), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(window), 50);

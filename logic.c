@@ -17,3 +17,14 @@ void choosenField(GtkWidget *widget, gpointer data)
     }
     updateBoard();
 }
+
+void downQuartersRotating(GtkWidget *widget, gpointer data)
+{
+    int * x = data;
+    printf("%d\n", x);
+}
+void upQuartersRotating(GtkWidget *widget, gpointer data)
+{
+    int * x = data;
+    printf("%d\n", x);
+}

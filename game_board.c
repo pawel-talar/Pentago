@@ -2,8 +2,24 @@
 
 void initRotationButtons()
 {
-
-    gtk_box_pack_end()
+    for(int i = 0; i < 4; i++)
+    {
+        if(i % 2 == 0)
+            upRotation[i] = gtk_button_new_with_label("<--");
+        else
+            upRotation[i] = gtk_button_new_with_label("-->");
+        gtk_box_pack_start(GTK_BOX(upButtons), upRotation[i], TRUE, TRUE, 1);
+        g_signal_connect(upRotation[i], "clicked", G_CALLBACK(upQuartersRotating), i);
+    }
+    for(int i = 0; i < 4; i++)
+    {
+        if(i % 2 == 0)
+            downRotation[i] = gtk_button_new_with_label("<--");
+        else
+            downRotation[i] = gtk_button_new_with_label("-->");
+        gtk_box_pack_start(GTK_BOX(downButtons), downRotation[i], TRUE, TRUE, 1);
+        g_signal_connect(downRotation[i], "clicked", G_CALLBACK(downQuartersRotating), i);
+    }
 }
 
 void createBoard()
