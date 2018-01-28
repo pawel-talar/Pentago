@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
     gtk_box_pack_start(GTK_BOX(actionSurf), gameField, TRUE, TRUE, 1);
     gtk_box_pack_start(GTK_BOX(actionSurf), upButtons, TRUE, TRUE, 1);
 
-    gtk_container_add(window, actionSurf);
+    gtk_container_add(GTK_CONTAINER(window), actionSurf);
 
     g_signal_connect(G_OBJECT(window), "destroy",G_CALLBACK(endProgram), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(window), 50);
