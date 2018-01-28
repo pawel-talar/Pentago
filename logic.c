@@ -18,13 +18,16 @@ void choosenField(GtkWidget *widget, gpointer data)
     updateBoard();
 }
 
+
 void downQuartersRotating(GtkWidget *widget, gpointer data)
 {
-    int * x = data;
-    printf("%d\n", x);
+    int * a = data;
+    if(moveStep == 1)
+        printf("Najpierw wybierz pole!\n");
 }
 void upQuartersRotating(GtkWidget *widget, gpointer data)
 {
-    int * x = data;
-    printf("%d\n", x);
+    int * a = data;
+    if(moveStep == 1)
+        printf("Najpierw wybierz pole!\n");
 }

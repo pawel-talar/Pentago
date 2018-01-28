@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
 
     initRotationButtons();
     createBoard();
-    gtk_box_pack_start(GTK_BOX(actionSurf), downButtons, TRUE, TRUE, 1);
-    gtk_box_pack_start(GTK_BOX(actionSurf), gameField, TRUE, TRUE, 1);
-    gtk_box_pack_start(GTK_BOX(actionSurf), upButtons, TRUE, TRUE, 1);
+    gtk_box_pack_end(GTK_BOX(actionSurf), downButtons, TRUE, TRUE, 1);
+    gtk_box_pack_end(GTK_BOX(actionSurf), gameField, TRUE, TRUE, 1);
+    gtk_box_pack_end(GTK_BOX(actionSurf), upButtons, TRUE, TRUE, 1);
 
     gtk_container_add(GTK_CONTAINER(window), actionSurf);
 
