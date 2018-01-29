@@ -6,13 +6,8 @@
 #include <fcntl.h>
 #include "fifo.h"
 
-struct pipes {
-    FILE *fifo_in, *fifo_out;
-    int isA;
-} ;
 
 int fileno(FILE *file);
-void pokazBlad(char *komunikat);
 static FILE *openOutPipe(char *name);
 static FILE *openInPipe(char *name);
 

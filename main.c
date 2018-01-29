@@ -1,4 +1,5 @@
 #include "gamecomp.h"
+#include "fifo.h"
 
 GtkWidget *window;
 GtkWidget *actionSurf;

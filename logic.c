@@ -2,7 +2,7 @@
 
 
 
-static changePlayer()
+static void changePlayer()
 {
     moveStep = 1;
     if(Player == 1)
@@ -178,13 +178,13 @@ void downQuartersRotating(GtkWidget *widget, gpointer data)
         printf("Najpierw wybierz pole!\n");
     else
     {
-        if(a == 0)
+        if(a == (int *)1)
             rotateLeft(3);
-        else if(a == (int *) 1)
+        else if(a == (int *) 0)
             rotateRight(3);
-        else if(a == (int *) 2)
-            rotateLeft(4);
         else if(a == (int *) 3)
+            rotateLeft(4);
+        else if(a == (int *) 2)
             rotateRight(4);
     }
     updateBoard();

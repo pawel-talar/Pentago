@@ -7,6 +7,11 @@
 
 #include <stdbool.h>
 
+struct pipes {
+    FILE *fifo_in, *fifo_out;
+    int isA;
+} ;
+
 typedef struct pipes *PipesPtr;
 
 PipesPtr initPipes(int argc, char *argv[]);
