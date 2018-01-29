@@ -29,11 +29,4 @@ int Player;
 int boardSize;
 int moveStep;
 
-/*Dodać rotation buttons
- * i odpowiadające im funkce
- * sensowne game marks
- * ogarnąć pliki kolejkowe
- * done :3
- */
-
 #endif //GTK_GAMECOMP_H

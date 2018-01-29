@@ -20,10 +20,16 @@ void choosenField(GtkWidget *widget, gpointer data)
 
 static void rotateLeft(int quarter)
 {
-    int tab[boardSize+1][boardSize+1];
+    int tab[boardSize/2+1][boardSize/2+1];
+    int pom[boardSize/2+1][boardSize/2+1];
     for(int i = 0; i < boardSize; i++)
-        for(int j = 0; j < boardSize; j++)
+    {
+        for (int j = 0; j < boardSize; j++)
+        {
             tab[i][j] = 0;
+            pom[i][j] = 0;
+        }
+    }
     int i = 0;
     int j = 0;
     int n = 0;
@@ -62,11 +68,15 @@ static void rotateLeft(int quarter)
         for(; j < m; j++)
         {
            // printf("%d %d\n", i, j);
-            tab[n-j-1][i] = gameBoard[i][j];
+            tab[i-k][j-l] = gameBoard[i][j];
             printf("%d %d\n", n-j-1, i);
         }
         j = l;
     }
+    for(int x = 0; x < boardSize/2; x++)
+        for(int y = 0; y < boardSize/2; y++)
+            pom[boardSize/2-y-1][x] = tab[x][y];
+
     i = k;
     j = l;
     for(; i < n; i++)
@@ -74,8 +84,7 @@ static void rotateLeft(int quarter)
         for(; j < m; j++)
         {
            // printf("%d %d\n", k, l);
-            gameBoard[i][j] = tab[i][j];
-            printf("%d\n", tab[i][j]);
+            gameBoard[i][j] = pom[i-k][j-l];
         }
         j = l;
     }
