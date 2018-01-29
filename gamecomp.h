@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 void initRotationButtons();
 void createBoard();
@@ -24,7 +25,6 @@ int gameBoard[10][10];
 GtkWidget *Board[10][10];
 GtkWidget *upRotation[5];
 GtkWidget *downRotation[5];
-GtkWidget *Rotation[10];
 int Player;
 int boardSize;
 int moveStep;

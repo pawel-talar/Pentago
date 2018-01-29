@@ -3,7 +3,7 @@ project(GTK C)
 
 set(CMAKE_C_STANDARD 99)
 
-add_executable(GTK main.c game_board.c logic.c gamecomp.h)
+add_executable(GTK main.c game_board.c logic.c gamecomp.h fifo.c fifo.h)
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
