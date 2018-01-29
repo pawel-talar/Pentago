@@ -1,22 +1,6 @@
 #include "gamecomp.h"
 
-void choosenField(GtkWidget *widget, gpointer data)
-{
-    coordinates * A = malloc(sizeof(coordinates));
-    A = data;
-    int i = A->x;
-    int j = A->y;
-    if(moveStep == 2)
-        printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");
-    else if(gameBoard[i][j] == 1 || gameBoard[i][j] == 2)
-        printf("Pole zajete!\n");
-    else
-    {
-        gameBoard[i][j] = Player;
-        moveStep = 2;
-    }
-    updateBoard();
-}
+
 
 static changePlayer()
 {
@@ -76,9 +60,7 @@ static void rotateLeft(int quarter)
     {
         for(; j < m; j++)
         {
-           // printf("%d %d\n", i, j);
             tab[i-k][j-l] = gameBoard[i][j];
-            printf("%d %d\n", n-j-1, i);
         }
         j = l;
     }
@@ -92,7 +74,6 @@ static void rotateLeft(int quarter)
     {
         for(; j < m; j++)
         {
-           // printf("%d %d\n", k, l);
             gameBoard[i][j] = pom[i-k][j-l];
         }
         j = l;
@@ -149,9 +130,7 @@ static void rotateRight(int quarter)
     {
         for(; j < m; j++)
         {
-            // printf("%d %d\n", i, j);
             tab[i-k][j-l] = gameBoard[i][j];
-            printf("%d %d\n", n-j-1, i);
         }
         j = l;
     }
@@ -165,7 +144,6 @@ static void rotateRight(int quarter)
     {
         for(; j < m; j++)
         {
-            // printf("%d %d\n", k, l);
             gameBoard[i][j] = pom[i-k][j-l];
         }
         j = l;
@@ -208,6 +186,24 @@ void downQuartersRotating(GtkWidget *widget, gpointer data)
             rotateLeft(4);
         else if(a == (int *) 3)
             rotateRight(4);
+    }
+    updateBoard();
+}
+
+void choosenField(GtkWidget *widget, gpointer data)
+{
+    coordinates * A = malloc(sizeof(coordinates));
+    A = data;
+    int i = A->x;
+    int j = A->y;
+    if(moveStep == 2)
+        printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");
+    else if(gameBoard[i][j] == 1 || gameBoard[i][j] == 2)
+        printf("Pole zajete!\n");
+    else
+    {
+        gameBoard[i][j] = Player;
+        moveStep = 2;
     }
     updateBoard();
 }
