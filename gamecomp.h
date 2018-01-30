@@ -18,10 +18,13 @@ typedef struct{
     int y;
 } coordinates;
 
+char *player_id;
+char *opp_id;
+
 GtkWidget *gameField;
 GtkWidget *upButtons;
 GtkWidget *downButtons;
-int gameBoard[10][10];
+char gameBoard[10][10];
 GtkWidget *Board[10][10];
 GtkWidget *upRotation[5];
 GtkWidget *downRotation[5];

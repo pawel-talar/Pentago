@@ -4,23 +4,47 @@
 GtkWidget *window;
 GtkWidget *actionSurf;
 
-static char *player_id;
-static char *opp_id;
+
+static PipesPtr potoki;
 
 void endProgram(GtkWidget *widget, gpointer data)
 {
     gtk_main_quit();
 }
 
+static gboolean isMoved(gpointer data)
+{
+    gchar wejscie[boardSize*boardSize+2];
+    strcpy(wejscie, opp_id);
+    if (getStringFromPipe(potoki,wejscie+strlen(wejscie), boardSize*boardSize+2)) {
+        strcat(wejscie," ");
+        int i = 0;
+        int j = 0;
+        for(int k = 0; k < boardSize*boardSize; k++)
+        {
+            if(j == boardSize)
+            {
+                j = 0;
+                i++;
+            }
+            gameBoard[i][j] = wejscie[k];
+            j++;
+        }
+    }
+    return TRUE;
+}
+
 int main(int argc, char *argv[])
 {
-    if(argc == 1)
+    if(argc == 1 || (argc == 2 && argv[1][0] == 'A'))
     {
-        printf("Nie podałeś argumentów wywołania!!\n");
+        printf("Podałeś za mało argumentów wywołania!!\n");
         return 0;
     }
 
-    initPipes(argc, argv);
+    if((potoki = initPipes(argc, argv)) == NULL)
+        return 0;
+
     gtk_init(&argc, &argv);
 
     if (argc == 2 && strcmp(argv[1],"A") == 0)
@@ -58,6 +82,9 @@ int main(int argc, char *argv[])
 
     g_signal_connect(G_OBJECT(window), "destroy",G_CALLBACK(endProgram), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(window), 50);
+
+    g_timeout_add(50, isMoved, NULL);
+
     gtk_widget_show_all(window);
     gtk_main();
     return 0;

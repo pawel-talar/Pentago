@@ -13,14 +13,14 @@ static void changePlayer()
 
 static void rotateLeft(int quarter)
 {
-    int tab[boardSize/2+1][boardSize/2+1];
-    int pom[boardSize/2+1][boardSize/2+1];
+    char tab[boardSize/2+1][boardSize/2+1];
+    char pom[boardSize/2+1][boardSize/2+1];
     for(int i = 0; i < boardSize; i++)
     {
         for (int j = 0; j < boardSize; j++)
         {
-            tab[i][j] = 0;
-            pom[i][j] = 0;
+            tab[i][j] = 'F';
+            pom[i][j] = 'F';
         }
     }
     int i = 0;
@@ -83,14 +83,14 @@ static void rotateLeft(int quarter)
 
 static void rotateRight(int quarter)
 {
-    int tab[boardSize/2+1][boardSize/2+1];
-    int pom[boardSize/2+1][boardSize/2+1];
+    char tab[boardSize/2+1][boardSize/2+1];
+    char pom[boardSize/2+1][boardSize/2+1];
     for(int i = 0; i < boardSize; i++)
     {
         for (int j = 0; j < boardSize; j++)
         {
-            tab[i][j] = 0;
-            pom[i][j] = 0;
+            tab[i][j] = 'F';
+            pom[i][j] = 'F';
         }
     }
     int i = 0;
@@ -198,11 +198,11 @@ void choosenField(GtkWidget *widget, gpointer data)
     int j = A->y;
     if(moveStep == 2)
         printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");
-    else if(gameBoard[i][j] == 1 || gameBoard[i][j] == 2)
+    else if(gameBoard[i][j] == 'A' || gameBoard[i][j] == 'B')
         printf("Pole zajete!\n");
     else
     {
-        gameBoard[i][j] = Player;
+        gameBoard[i][j] = player_id[0];
         moveStep = 2;
     }
     updateBoard();

@@ -28,7 +28,7 @@ void createBoard()
     {
         for(int j = 0; j < boardSize; j++)
         {
-            gameBoard[i][j] = 0;
+            gameBoard[i][j] = 'F';
             Board[i][j] = gtk_button_new_with_label(" ");
             coordinates * current = malloc(sizeof(coordinates));
             current->x = i;
@@ -45,11 +45,11 @@ void updateBoard()
     {
         for(int j = 0; j < boardSize; j++)
         {
-            if(gameBoard[i][j] == 1)
+            if(gameBoard[i][j] == 'A')
                 gtk_button_set_label(GTK_BUTTON(Board[i][j]), "X");
-            else if(gameBoard[i][j] == 2)
+            else if(gameBoard[i][j] == 'B')
                 gtk_button_set_label(GTK_BUTTON(Board[i][j]), "O");
-            else if(gameBoard[i][j] == 0)
+            else if(gameBoard[i][j] == 'F')
                 gtk_button_set_label(GTK_BUTTON(Board[i][j]), " ");
         }
     }
