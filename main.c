@@ -19,10 +19,7 @@ static gboolean isMoved(gpointer data)
         if((wejscie[0] == '1' && oppTurn == '0') || (wejscie[0] == '0' && oppTurn == '1'))
         {
             oppTurn = wejscie[0];
-            if(player_id[0] == 'A')
-                Player = 1;
-            else
-                Player = 2;
+            isMy = true;
             moveStep = 1;
             int i = 0;
             int j = 0;
@@ -61,7 +58,7 @@ int main(int argc, char *argv[])
         player_id = "A";
         playerTurn = '1';
         oppTurn = '0';
-        Player = 1;
+        isMy = true;
         boardSize = 6;
         moveStep = 1;
     }
@@ -71,7 +68,7 @@ int main(int argc, char *argv[])
         opp_id = "A";
         playerTurn = '1';
         oppTurn = '0';
-        Player = 2;
+        isMy = false;
         boardSize = 6;
         moveStep = 1;
     }

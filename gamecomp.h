@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 void initRotationButtons();
 void createBoard();
@@ -28,7 +29,7 @@ char gameBoard[10][10];
 GtkWidget *Board[10][10];
 GtkWidget *upRotation[5];
 GtkWidget *downRotation[5];
-int Player;
+bool isMy;
 int boardSize;
 int moveStep;
 

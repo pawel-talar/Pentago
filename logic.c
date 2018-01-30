@@ -19,11 +19,7 @@ static void sendMove()
 
 static void changePlayer()
 {
-    moveStep = 1;
-    if(Player == 2)
-        Player = 1;
-    else
-        Player = 2;
+    isMy = false;
     sendMove();
     if(playerTurn == '1')
         playerTurn = '0';
@@ -177,7 +173,7 @@ void upQuartersRotating(GtkWidget *widget, gpointer data)
 {
     int * a = data;
 
-    if((Player == 1 && player_id[0] == 'B') || (Player == 2 && player_id[0] == 'A'))
+    if(isMy == false)
         printf("Teraz kolej przeciwnika!\n");
     else if(moveStep == 1)
         printf("Najpierw wybierz pole!\n");
@@ -199,7 +195,7 @@ void upQuartersRotating(GtkWidget *widget, gpointer data)
 void downQuartersRotating(GtkWidget *widget, gpointer data)
 {
     int * a = data;
-    if((Player == 1 && player_id[0] == 'B') || (Player == 2 && player_id[0] == 'A'))
+    if(isMy == false)
         printf("Teraz kolej przeciwnika!\n");
     else if(moveStep == 1)
         printf("Najpierw wybierz pole!\n");
@@ -224,7 +220,7 @@ void choosenField(GtkWidget *widget, gpointer data)
     A = data;
     int i = A->x;
     int j = A->y;
-    if((Player == 1 && player_id[0] == 'B') || (Player == 2 && player_id[0] == 'A'))
+    if(isMy == false)
         printf("Teraz kolej przeciwnika!\n");
     else if(moveStep == 2)
         printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");
