@@ -4,6 +4,9 @@
 GtkWidget *window;
 GtkWidget *actionSurf;
 
+static char *player_id;
+static char *opp_id;
+
 void endProgram(GtkWidget *widget, gpointer data)
 {
     gtk_main_quit();
@@ -11,14 +14,32 @@ void endProgram(GtkWidget *widget, gpointer data)
 
 int main(int argc, char *argv[])
 {
+    if(argc == 1)
+    {
+        printf("Nie podałeś argumentów wywołania!!\n");
+        return 0;
+    }
+
+    initPipes(argc, argv);
     gtk_init(&argc, &argv);
+
+    if (argc == 2 && strcmp(argv[1],"A") == 0)
+    {
+        opp_id = "B";
+        player_id = "A";
+    }
+    else
+    {
+        player_id = "B";
+        opp_id = "A";
+    }
 
     Player = 1;
     boardSize = 6;
     moveStep = 1;
 
     gchar header[30];
-    sprintf(header, "Pentago!");
+    sprintf(header, "Pentago! Gracz %c", player_id[0]);
     window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title(GTK_WINDOW(window), header);
 
