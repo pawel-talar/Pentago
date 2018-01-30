@@ -233,3 +233,115 @@ void choosenField(GtkWidget *widget, gpointer data)
     }
     updateBoard();
 }
+
+bool checkWinforA()
+{
+    int inrow = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            if(gameBoard[i][j] == 'A')
+                inrow++;
+            else
+                inrow = 0;
+        }
+        if(inrow == boardSize-1)
+            return true;
+        inrow = 0;
+    }
+
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            if(gameBoard[j][i] == 'A')
+                inrow++;
+            else
+                inrow = 0;
+        }
+        if(inrow == boardSize-1)
+            return true;
+        inrow = 0;
+    }
+    int j = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        if(gameBoard[j][i] == 'A')
+            inrow++;
+        else
+            inrow = 0;
+        j++;
+    }
+    if(inrow == boardSize-1)
+        return true;
+    inrow = 0;
+    j = boardSize-1;
+    for(int i = 0; i < boardSize; i++)
+    {
+        if(gameBoard[j][i] == 'A')
+            inrow++;
+        else
+            inrow = 0;
+        j--;
+    }
+    if(inrow == boardSize-1)
+        return true;
+    return false;
+}
+
+bool checkWinforB()
+{
+    int inrow = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            if(gameBoard[i][j] == 'B')
+                inrow++;
+            else
+                inrow = 0;
+        }
+        if(inrow == boardSize-1)
+            return true;
+        inrow = 0;
+    }
+
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < 2; j++)
+        {
+            if(gameBoard[j][i] == 'B')
+                inrow++;
+            else
+                inrow = 0;
+        }
+        if(inrow == boardSize-1)
+            return true;
+        inrow = 0;
+    }
+    int j = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        if(gameBoard[j][i] == 'B')
+            inrow++;
+        else
+            inrow = 0;
+        j++;
+    }
+    if(inrow == boardSize-1)
+        return true;
+    inrow = 0;
+    j = boardSize-1;
+    for(int i = 0; i < boardSize; i++)
+    {
+        if(gameBoard[j][i] == 'B')
+            inrow++;
+        else
+            inrow = 0;
+        j--;
+    }
+    if(inrow == boardSize-1)
+        return true;
+    return false;
+}
