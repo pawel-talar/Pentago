@@ -1,14 +1,28 @@
 #include "gamecomp.h"
+#include "fifo.h"
 
-
+static void sendMove()
+{
+    gchar wejscie[boardSize*boardSize];
+    int k = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < boardSize; j++)
+        {
+            wejscie[k] = gameBoard[i][j];
+            k++;
+        }
+    }
+    sendStringToPipe(potoki, wejscie);
+}
 
 static void changePlayer()
 {
-    moveStep = 1;
-    if(Player == 1)
-        Player = 2;
-    else
+    if(Player == 2)
         Player = 1;
+    else
+        Player = 2;
+    sendMove();
 }
 
 static void rotateLeft(int quarter)
@@ -78,6 +92,7 @@ static void rotateLeft(int quarter)
         }
         j = l;
     }
+    updateBoard();
     changePlayer();
 }
 
@@ -148,6 +163,7 @@ static void rotateRight(int quarter)
         }
         j = l;
     }
+    updateBoard();
     changePlayer();
 }
 
@@ -196,7 +212,9 @@ void choosenField(GtkWidget *widget, gpointer data)
     A = data;
     int i = A->x;
     int j = A->y;
-    if(moveStep == 2)
+    if((Player == 1 && player_id[0] == 'B') || (Player == 2 && player_id[0] == 'A'))
+        printf("Teraz kolej przeciwnika!\n");
+    else if(moveStep == 2)
         printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");
     else if(gameBoard[i][j] == 'A' || gameBoard[i][j] == 'B')
         printf("Pole zajete!\n");

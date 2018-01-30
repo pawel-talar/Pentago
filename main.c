@@ -5,18 +5,17 @@ GtkWidget *window;
 GtkWidget *actionSurf;
 
 
-static PipesPtr potoki;
-
 void endProgram(GtkWidget *widget, gpointer data)
 {
     gtk_main_quit();
+    closePipes(potoki);
 }
 
 static gboolean isMoved(gpointer data)
 {
     gchar wejscie[boardSize*boardSize+2];
     strcpy(wejscie, opp_id);
-    if (getStringFromPipe(potoki,wejscie+strlen(wejscie), boardSize*boardSize+2)) {
+    if (getStringFromPipe(potoki,wejscie+strlen(wejscie), boardSize*boardSize)) {
         strcat(wejscie," ");
         int i = 0;
         int j = 0;
@@ -30,6 +29,7 @@ static gboolean isMoved(gpointer data)
             gameBoard[i][j] = wejscie[k];
             j++;
         }
+        updateBoard();
     }
     return TRUE;
 }
@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
 
     gtk_init(&argc, &argv);
 
-    if (argc == 2 && strcmp(argv[1],"A") == 0)
+    if (argc == 3 && strcmp(argv[1],"A") == 0)
     {
         opp_id = "B";
         player_id = "A";

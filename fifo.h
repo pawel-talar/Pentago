@@ -13,6 +13,7 @@ struct pipes {
 } ;
 
 typedef struct pipes *PipesPtr;
+PipesPtr potoki;
 
 PipesPtr initPipes(int argc, char *argv[]);
 void     sendStringToPipe(PipesPtr channel, const char *data);
