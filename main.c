@@ -14,22 +14,30 @@ void endProgram(GtkWidget *widget, gpointer data)
 static gboolean isMoved(gpointer data)
 {
     gchar wejscie[boardSize*boardSize+2];
-    strcpy(wejscie, opp_id);
-    if (getStringFromPipe(potoki,wejscie+strlen(wejscie), boardSize*boardSize)) {
-        strcat(wejscie," ");
-        int i = 0;
-        int j = 0;
-        for(int k = 0; k < boardSize*boardSize; k++)
+    int s = (boardSize * boardSize + 2);
+    if (getStringFromPipe(potoki, wejscie, s)) {
+        if((wejscie[0] == '1' && oppTurn == '0') || (wejscie[0] == '0' && oppTurn == '1'))
         {
-            if(j == boardSize)
-            {
-                j = 0;
-                i++;
+            oppTurn = wejscie[0];
+            if(player_id[0] == 'A')
+                Player = 1;
+            else
+                Player = 2;
+            moveStep = 1;
+            int i = 0;
+            int j = 0;
+            for (int k = 1; k < boardSize * boardSize + 1; k++) {
+                if (j == boardSize) {
+                    j = 0;
+                    i++;
+                    printf("\n");
+                }
+                gameBoard[i][j] = wejscie[k];
+                printf("%c", gameBoard[i][j]);
+                j++;
             }
-            gameBoard[i][j] = wejscie[k];
-            j++;
+            updateBoard();
         }
-        updateBoard();
     }
     return TRUE;
 }
@@ -51,16 +59,22 @@ int main(int argc, char *argv[])
     {
         opp_id = "B";
         player_id = "A";
+        playerTurn = '1';
+        oppTurn = '0';
+        Player = 1;
+        boardSize = 6;
+        moveStep = 1;
     }
     else
     {
         player_id = "B";
         opp_id = "A";
+        playerTurn = '1';
+        oppTurn = '0';
+        Player = 2;
+        boardSize = 6;
+        moveStep = 1;
     }
-
-    Player = 1;
-    boardSize = 6;
-    moveStep = 1;
 
     gchar header[30];
     sprintf(header, "Pentago! Gracz %c", player_id[0]);
@@ -83,7 +97,7 @@ int main(int argc, char *argv[])
     g_signal_connect(G_OBJECT(window), "destroy",G_CALLBACK(endProgram), NULL);
     gtk_container_set_border_width(GTK_CONTAINER(window), 50);
 
-    g_timeout_add(50, isMoved, NULL);
+    g_timeout_add(150, isMoved, NULL);
 
     gtk_widget_show_all(window);
     gtk_main();

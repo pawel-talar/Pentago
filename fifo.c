@@ -71,7 +71,7 @@ void sendStringToPipe(PipesPtr pipes, const char *data)
         printf("Failed to send data");
 }
 
-bool getStringFromPipe(PipesPtr pipes, char *buffer, size_t size)
+bool getStringFromPipe(PipesPtr pipes, char *buffer, int size)
 {
     char *result = fgets(buffer,size,pipes->fifo_in);
     fflush(pipes->fifo_in);

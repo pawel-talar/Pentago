@@ -15,9 +15,12 @@ struct pipes {
 typedef struct pipes *PipesPtr;
 PipesPtr potoki;
 
+char playerTurn;
+char oppTurn;
+
 PipesPtr initPipes(int argc, char *argv[]);
 void     sendStringToPipe(PipesPtr channel, const char *data);
-bool     getStringFromPipe(PipesPtr channel, char *buffer, size_t size);
+bool     getStringFromPipe(PipesPtr channel, char *buffer, int size);
 void     closePipes(PipesPtr channel);
 
 

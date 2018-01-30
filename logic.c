@@ -3,8 +3,9 @@
 
 static void sendMove()
 {
-    gchar wejscie[boardSize*boardSize];
-    int k = 0;
+    gchar wejscie[boardSize*boardSize+2];
+    wejscie[0] = playerTurn;
+    int k = 1;
     for(int i = 0; i < boardSize; i++)
     {
         for(int j = 0; j < boardSize; j++)
@@ -18,11 +19,16 @@ static void sendMove()
 
 static void changePlayer()
 {
+    moveStep = 1;
     if(Player == 2)
         Player = 1;
     else
         Player = 2;
     sendMove();
+    if(playerTurn == '1')
+        playerTurn = '0';
+    else
+        playerTurn = '1';
 }
 
 static void rotateLeft(int quarter)
@@ -163,15 +169,17 @@ static void rotateRight(int quarter)
         }
         j = l;
     }
-    updateBoard();
-    changePlayer();
+
 }
 
 
 void upQuartersRotating(GtkWidget *widget, gpointer data)
 {
     int * a = data;
-    if(moveStep == 1)
+
+    if((Player == 1 && player_id[0] == 'B') || (Player == 2 && player_id[0] == 'A'))
+        printf("Teraz kolej przeciwnika!\n");
+    else if(moveStep == 1)
         printf("Najpierw wybierz pole!\n");
     else
     {
@@ -183,14 +191,17 @@ void upQuartersRotating(GtkWidget *widget, gpointer data)
             rotateLeft(2);
         else if(a == (int *) 3)
             rotateRight(2);
+        updateBoard();
+        changePlayer();
     }
-    updateBoard();
 }
 
 void downQuartersRotating(GtkWidget *widget, gpointer data)
 {
     int * a = data;
-    if(moveStep == 1)
+    if((Player == 1 && player_id[0] == 'B') || (Player == 2 && player_id[0] == 'A'))
+        printf("Teraz kolej przeciwnika!\n");
+    else if(moveStep == 1)
         printf("Najpierw wybierz pole!\n");
     else
     {
@@ -202,8 +213,9 @@ void downQuartersRotating(GtkWidget *widget, gpointer data)
             rotateLeft(4);
         else if(a == (int *) 2)
             rotateRight(4);
+        updateBoard();
+        changePlayer();
     }
-    updateBoard();
 }
 
 void choosenField(GtkWidget *widget, gpointer data)
