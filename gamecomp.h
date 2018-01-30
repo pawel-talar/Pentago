@@ -22,6 +22,7 @@ typedef struct{
 char *player_id;
 char *opp_id;
 
+GtkWidget *window;
 GtkWidget *gameField;
 GtkWidget *upButtons;
 GtkWidget *downButtons;

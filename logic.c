@@ -17,9 +17,123 @@ static void sendMove()
     sendStringToPipe(potoki, wejscie);
 }
 
+static void resultCom(char *com)
+{
+    GtkWidget *dialog;
+    dialog = gtk_message_dialog_new (GTK_WINDOW(window),GTK_DIALOG_DESTROY_WITH_PARENT, GTK_MESSAGE_ERROR,GTK_BUTTONS_CLOSE,"%s",com);
+    gtk_dialog_run (GTK_DIALOG (dialog));
+    gtk_widget_destroy (dialog);
+}
+
+
+static bool checkWin(char x)
+{
+    int inrow = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < boardSize; j++)
+        {
+            if(gameBoard[i][j] == x)
+                inrow++;
+            else
+                inrow = 0;
+            if(inrow == boardSize-1)
+            {
+                for(int y = 0; y < boardSize; y++)
+                {
+                    if(gameBoard[i][y] == x)
+                        gameBoard[i][y] = 'W';
+                }
+                return true;
+            }
+        }
+        inrow = 0;
+    }
+
+    for(int i = 0; i < boardSize; i++)
+    {
+        for(int j = 0; j < boardSize; j++)
+        {
+            if(gameBoard[j][i] == x)
+                inrow++;
+            else
+                inrow = 0;
+        }
+        if(inrow == boardSize-1)
+        {
+            for(int j = 0; j < boardSize; j++)
+            {
+                if(gameBoard[j][i] == x)
+                    gameBoard[j][i] = 'W';
+            }
+            return true;
+        }
+        inrow = 0;
+    }
+    int j = 0;
+    for(int i = 0; i < boardSize; i++)
+    {
+        if(gameBoard[j][i] == x)
+            inrow++;
+        else
+            inrow = 0;
+        j++;
+    }
+    if(inrow == boardSize-1)
+    {
+        j = 0;
+        for(int i = 0; i < boardSize; i++)
+        {
+            if(gameBoard[i][j] == x)
+                gameBoard[i][j] = 'W';
+            j++;
+        }
+        return true;
+    }
+    inrow = 0;
+    j = boardSize-1;
+    for(int i = 0; i < boardSize; i++)
+    {
+        if(gameBoard[j][i] == x)
+            inrow++;
+        else
+            inrow = 0;
+        j--;
+    }
+    if(inrow == boardSize-1)
+    {
+        j = boardSize-1;
+        for(int i = 0; i < boardSize; i++)
+        {
+            if(gameBoard[i][j] == x)
+                gameBoard[i][j] = 'W';
+            j--;
+        }
+        return true;
+    }
+    return false;
+}
+
 static void changePlayer()
 {
     isMy = false;
+    bool a = checkWin('A');
+    bool b = checkWin('B');
+    if(a == true && b == true)
+    {
+        resultCom("Remis!");
+        playerTurn = '3';
+    }
+    else if(a == true)
+    {
+        resultCom("GRACZ A WYGRAŁ!");
+        playerTurn = '3';
+    }
+    else if(b == true)
+    {
+        resultCom("GRACZ B WYGRAŁ!");
+        playerTurn = '3';
+    }
     sendMove();
     if(playerTurn == '1')
         playerTurn = '0';
@@ -234,114 +348,3 @@ void choosenField(GtkWidget *widget, gpointer data)
     updateBoard();
 }
 
-bool checkWinforA()
-{
-    int inrow = 0;
-    for(int i = 0; i < boardSize; i++)
-    {
-        for(int j = 0; j < 2; j++)
-        {
-            if(gameBoard[i][j] == 'A')
-                inrow++;
-            else
-                inrow = 0;
-        }
-        if(inrow == boardSize-1)
-            return true;
-        inrow = 0;
-    }
-
-    for(int i = 0; i < boardSize; i++)
-    {
-        for(int j = 0; j < 2; j++)
-        {
-            if(gameBoard[j][i] == 'A')
-                inrow++;
-            else
-                inrow = 0;
-        }
-        if(inrow == boardSize-1)
-            return true;
-        inrow = 0;
-    }
-    int j = 0;
-    for(int i = 0; i < boardSize; i++)
-    {
-        if(gameBoard[j][i] == 'A')
-            inrow++;
-        else
-            inrow = 0;
-        j++;
-    }
-    if(inrow == boardSize-1)
-        return true;
-    inrow = 0;
-    j = boardSize-1;
-    for(int i = 0; i < boardSize; i++)
-    {
-        if(gameBoard[j][i] == 'A')
-            inrow++;
-        else
-            inrow = 0;
-        j--;
-    }
-    if(inrow == boardSize-1)
-        return true;
-    return false;
-}
-
-bool checkWinforB()
-{
-    int inrow = 0;
-    for(int i = 0; i < boardSize; i++)
-    {
-        for(int j = 0; j < 2; j++)
-        {
-            if(gameBoard[i][j] == 'B')
-                inrow++;
-            else
-                inrow = 0;
-        }
-        if(inrow == boardSize-1)
-            return true;
-        inrow = 0;
-    }
-
-    for(int i = 0; i < boardSize; i++)
-    {
-        for(int j = 0; j < 2; j++)
-        {
-            if(gameBoard[j][i] == 'B')
-                inrow++;
-            else
-                inrow = 0;
-        }
-        if(inrow == boardSize-1)
-            return true;
-        inrow = 0;
-    }
-    int j = 0;
-    for(int i = 0; i < boardSize; i++)
-    {
-        if(gameBoard[j][i] == 'B')
-            inrow++;
-        else
-            inrow = 0;
-        j++;
-    }
-    if(inrow == boardSize-1)
-        return true;
-    inrow = 0;
-    j = boardSize-1;
-    for(int i = 0; i < boardSize; i++)
-    {
-        if(gameBoard[j][i] == 'B')
-            inrow++;
-        else
-            inrow = 0;
-        j--;
-    }
-    if(inrow == boardSize-1)
-        return true;
-    return false;
-}

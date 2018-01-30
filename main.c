@@ -1,7 +1,7 @@
 #include "gamecomp.h"
 #include "fifo.h"
 
-GtkWidget *window;
+
 GtkWidget *actionSurf;
 
 
@@ -59,7 +59,7 @@ int main(int argc, char *argv[])
         playerTurn = '1';
         oppTurn = '0';
         isMy = true;
-        boardSize = 6;
+        boardSize = 4;
         moveStep = 1;
     }
     else
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
         playerTurn = '1';
         oppTurn = '0';
         isMy = false;
-        boardSize = 6;
+        boardSize = 4;
         moveStep = 1;
     }
 
