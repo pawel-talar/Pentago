@@ -42,7 +42,7 @@ static bool checkWin(char x)
                 for(int y = 0; y < boardSize; y++)
                 {
                     if(gameBoard[i][y] == x)
-                        gameBoard[i][y] = 'W';
+                        gameBoard[i][y] = (char) (x + 2);
                 }
                 return true;
             }
@@ -61,10 +61,10 @@ static bool checkWin(char x)
         }
         if(inrow == boardSize-1)
         {
-            for(int j = 0; j < boardSize; j++)
+            for(int y = 0; y < boardSize; y++)
             {
-                if(gameBoard[j][i] == x)
-                    gameBoard[j][i] = 'W';
+                if(gameBoard[y][i] == x)
+                    gameBoard[y][i] = (char) (x + 2);
             }
             return true;
         }
@@ -85,7 +85,7 @@ static bool checkWin(char x)
             j = 0;
             for (int k = 0; k < boardSize; k++) {
                 if (gameBoard[k][j] == x)
-                    gameBoard[k][j] = 'W';
+                    gameBoard[k][j] = (char) (x + 2);
                 j++;
             }
             return true;
@@ -103,7 +103,7 @@ static bool checkWin(char x)
             j = 1;
             for (int k = 0; k < boardSize-1; k++) {
                 if (gameBoard[j][k] == x)
-                    gameBoard[j][k] = 'W';
+                    gameBoard[j][k] = (char) (x + 2);
                 j++;
             }
             return true;
@@ -121,7 +121,7 @@ static bool checkWin(char x)
             j = 1;
             for (int k = 0; k < boardSize-1; k++) {
                 if (gameBoard[k][j] == x)
-                    gameBoard[k][j] = 'W';
+                    gameBoard[k][j] = (char) (x + 2);
                 j++;
             }
             return true;
@@ -141,7 +141,7 @@ static bool checkWin(char x)
             j = boardSize - 1;
             for (int i = 0; i < boardSize; i++) {
                 if (gameBoard[i][j] == x)
-                    gameBoard[i][j] = 'W';
+                    gameBoard[i][j] = (char) (x + 2);
                 j--;
             }
             return true;
@@ -160,7 +160,7 @@ static bool checkWin(char x)
             j = boardSize - 2;
             for (int i = 0; i < boardSize-1; i++) {
                 if (gameBoard[i][j] == x)
-                    gameBoard[i][j] = 'W';
+                    gameBoard[i][j] = (char) (x + 2);
                 j--;
             }
             return true;
@@ -179,7 +179,7 @@ static bool checkWin(char x)
             j = boardSize - 1;
             for (int i = 1; i < boardSize; i++) {
                 if (gameBoard[i][j] == x)
-                    gameBoard[i][j] = 'W';
+                    gameBoard[i][j] = (char) (x + 2);
                 j--;
             }
             return true;
@@ -193,25 +193,26 @@ static void changePlayer()
     isMy = false;
     bool a = checkWin('A');
     bool b = checkWin('B');
+    updateBoard();
     if(a == true && b == true)
     {
-        resultCom("Remis!");
         playerTurn = '3';
+        resultCom("Remis!");
     }
     else if(a == true)
     {
-        resultCom("GRACZ A WYGRAŁ!");
         playerTurn = '3';
+        resultCom("GRACZ A WYGRAŁ!");
     }
     else if(b == true)
     {
-        resultCom("GRACZ B WYGRAŁ!");
         playerTurn = '3';
+        resultCom("GRACZ B WYGRAŁ!");
     }
     sendMove();
     if(playerTurn == '1')
         playerTurn = '0';
-    else
+    else if(playerTurn == '0')
         playerTurn = '1';
 }
 
@@ -360,8 +361,9 @@ static void rotateRight(int quarter)
 void upQuartersRotating(GtkWidget *widget, gpointer data)
 {
     int * a = data;
-
-    if(isMy == false)
+    if(playerTurn == 3)
+        resultCom("GRA ROZSTRZYGNIĘTA, ABY ZAGRAĆ URUCHOM GRĘ PONOWNIE!");
+    else if(isMy == false)
         printf("Teraz kolej przeciwnika!\n");
     else if(moveStep == 1)
         printf("Najpierw wybierz pole!\n");
@@ -383,7 +385,9 @@ void upQuartersRotating(GtkWidget *widget, gpointer data)
 void downQuartersRotating(GtkWidget *widget, gpointer data)
 {
     int * a = data;
-    if(isMy == false)
+    if(playerTurn == '3')
+        resultCom("GRA ROZSTRZYGNIĘTA, ABY ZAGRAĆ URUCHOM GRĘ PONOWNIE!");
+    else if(isMy == false)
         printf("Teraz kolej przeciwnika!\n");
     else if(moveStep == 1)
         printf("Najpierw wybierz pole!\n");
@@ -408,7 +412,9 @@ void choosenField(GtkWidget *widget, gpointer data)
     A = data;
     int i = A->x;
     int j = A->y;
-    if(isMy == false)
+    if(playerTurn == '3')
+        resultCom("GRA ROZSTRZYGNIĘTA, ABY ZAGRAĆ URUCHOM GRĘ PONOWNIE!");
+    else if(isMy == false)
         printf("Teraz kolej przeciwnika!\n");
     else if(moveStep == 2)
         printf("Wybrałeś już pole, teraz odwróć jedną ze ćwiartek!\n");

@@ -45,12 +45,37 @@ void updateBoard()
     {
         for(int j = 0; j < boardSize; j++)
         {
-            if(gameBoard[i][j] == 'A')
-                gtk_button_set_label(GTK_BUTTON(Board[i][j]), "X");
-            else if(gameBoard[i][j] == 'B')
-                gtk_button_set_label(GTK_BUTTON(Board[i][j]), "O");
-            else if(gameBoard[i][j] == 'F')
-                gtk_button_set_label(GTK_BUTTON(Board[i][j]), " ");
+            if (gameBoard[i][j] == 'A')
+            {
+                GtkWidget *image = gtk_image_new_from_file("../img/A.png");
+                g_object_ref(image);
+                gtk_button_set_image(GTK_BUTTON(Board[i][j]), image);
+            }
+            else if (gameBoard[i][j] == 'B')
+            {
+                GtkWidget *image = gtk_image_new_from_file("../img/B.png");
+                g_object_ref(image);
+                gtk_button_set_image(GTK_BUTTON(Board[i][j]), image);
+            }
+            else if (gameBoard[i][j] == 'F')
+            {
+                GtkWidget *image = gtk_image_new_from_file("../img/free.png");
+                g_object_ref(image);
+                gtk_button_set_image(GTK_BUTTON(Board[i][j]), image);
+            }
+            else if(gameBoard[i][j] == 'C')
+            {
+                GtkWidget *image = gtk_image_new_from_file("../img/Awin.png");
+                g_object_ref(image);
+                gtk_button_set_image(GTK_BUTTON(Board[i][j]), image);
+            }
+            else if(gameBoard[i][j] == 'D')
+            {
+                GtkWidget *image = gtk_image_new_from_file("../img/Bwin.png");
+                g_object_ref(image);
+                gtk_button_set_image(GTK_BUTTON(Board[i][j]), image);
+            }
+            gtk_button_set_always_show_image(GTK_BUTTON(Board[i][j]), TRUE);
         }
     }
 }

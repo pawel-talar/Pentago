@@ -1,9 +1,7 @@
 #include "gamecomp.h"
 #include "fifo.h"
 
-
 GtkWidget *actionSurf;
-
 
 void endProgram(GtkWidget *widget, gpointer data)
 {
@@ -16,9 +14,11 @@ static gboolean isMoved(gpointer data)
     gchar wejscie[boardSize*boardSize+2];
     int s = (boardSize * boardSize + 2);
     if (getStringFromPipe(potoki, wejscie, s)) {
-        if((wejscie[0] == '1' && oppTurn == '0') || (wejscie[0] == '0' && oppTurn == '1'))
+        if((wejscie[0] == '1' && oppTurn == '0') || (wejscie[0] == '0' && oppTurn == '1') || wejscie[0] == '3')
         {
             oppTurn = wejscie[0];
+            if(oppTurn == '3')
+                playerTurn = '3';
             isMy = true;
             moveStep = 1;
             int i = 0;
@@ -41,9 +41,14 @@ static gboolean isMoved(gpointer data)
 
 int main(int argc, char *argv[])
 {
-    if(argc == 1 || (argc == 2 && argv[1][0] == 'A'))
+    if(argc == 1)
     {
         printf("Podałeś za mało argumentów wywołania!!\n");
+        return 0;
+    }
+    else if(argc > 2)
+    {
+        printf("Podałeś za dużo argumentów wywołania!!\n");
         return 0;
     }
 
@@ -52,25 +57,41 @@ int main(int argc, char *argv[])
 
     gtk_init(&argc, &argv);
 
-    if (argc == 3 && strcmp(argv[1],"A") == 0)
+    if (argv[1][0] == 'A')
     {
         opp_id = "B";
         player_id = "A";
         playerTurn = '1';
         oppTurn = '0';
         isMy = true;
-        boardSize = 4;
+        boardSize = (int)argv[1][1] - (int)'0';
+        printf("%d\n", boardSize);
+        if(boardSize != 6 && boardSize != 4)
+        {
+            printf("NIEDOPUSZCZALNY ROZMIAR TABLICY!");
+            return 0;
+        }
         moveStep = 1;
     }
-    else
+    else if(argv[1][0] == 'B')
     {
         player_id = "B";
         opp_id = "A";
         playerTurn = '1';
         oppTurn = '0';
         isMy = false;
-        boardSize = 4;
+        boardSize = (int)argv[1][1] - (int)'0';
+        if(boardSize != 6 && boardSize != 4)
+        {
+            printf("NIEDOPUSZCZALNY ROZMIAR TABLICY!");
+            return 0;
+        }
         moveStep = 1;
+    }
+    else
+    {
+        printf("Podałeś złe argumenty!\n");
+        return 0;
     }
 
     gchar header[30];
@@ -85,6 +106,7 @@ int main(int argc, char *argv[])
 
     initRotationButtons();
     createBoard();
+    updateBoard();
     gtk_box_pack_end(GTK_BOX(actionSurf), downButtons, TRUE, TRUE, 1);
     gtk_box_pack_end(GTK_BOX(actionSurf), gameField, TRUE, TRUE, 1);
     gtk_box_pack_end(GTK_BOX(actionSurf), upButtons, TRUE, TRUE, 1);
