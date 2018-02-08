@@ -70,46 +70,120 @@ static bool checkWin(char x)
         }
         inrow = 0;
     }
+
+    //skos lewo prawo
+
     int j = 0;
     for(int i = 0; i < boardSize; i++)
     {
-        if(gameBoard[j][i] == x)
+        if (gameBoard[j][i] == x)
             inrow++;
         else
             inrow = 0;
         j++;
-    }
-    if(inrow == boardSize-1)
-    {
-        j = 0;
-        for(int i = 0; i < boardSize; i++)
-        {
-            if(gameBoard[i][j] == x)
-                gameBoard[i][j] = 'W';
-            j++;
+        if (inrow == boardSize - 1) {
+            j = 0;
+            for (int k = 0; k < boardSize; k++) {
+                if (gameBoard[k][j] == x)
+                    gameBoard[k][j] = 'W';
+                j++;
+            }
+            return true;
         }
-        return true;
     }
+    j = 1;
+    for(int i = 0; i < boardSize-1; i++)
+    {
+        if (gameBoard[j][i] == x)
+            inrow++;
+        else
+            inrow = 0;
+        j++;
+        if (inrow == boardSize - 1) {
+            j = 1;
+            for (int k = 0; k < boardSize-1; k++) {
+                if (gameBoard[j][k] == x)
+                    gameBoard[j][k] = 'W';
+                j++;
+            }
+            return true;
+        }
+    }
+    j = 1;
+    for(int i = 0; i < boardSize-1; i++)
+    {
+        if (gameBoard[i][j] == x)
+            inrow++;
+        else
+            inrow = 0;
+        j++;
+        if (inrow == boardSize - 1) {
+            j = 1;
+            for (int k = 0; k < boardSize-1; k++) {
+                if (gameBoard[k][j] == x)
+                    gameBoard[k][j] = 'W';
+                j++;
+            }
+            return true;
+        }
+    }
+    // skos prawo lewo
     inrow = 0;
     j = boardSize-1;
     for(int i = 0; i < boardSize; i++)
     {
-        if(gameBoard[j][i] == x)
+        if (gameBoard[j][i] == x)
             inrow++;
         else
             inrow = 0;
         j--;
-    }
-    if(inrow == boardSize-1)
-    {
-        j = boardSize-1;
-        for(int i = 0; i < boardSize; i++)
-        {
-            if(gameBoard[i][j] == x)
-                gameBoard[i][j] = 'W';
-            j--;
+        if (inrow == boardSize - 1) {
+            j = boardSize - 1;
+            for (int i = 0; i < boardSize; i++) {
+                if (gameBoard[i][j] == x)
+                    gameBoard[i][j] = 'W';
+                j--;
+            }
+            return true;
         }
-        return true;
+    }
+    inrow = 0;
+    j = boardSize-2;
+    for(int i = 0; i < boardSize-1; i++)
+    {
+        if (gameBoard[j][i] == x)
+            inrow++;
+        else
+            inrow = 0;
+        j--;
+        if (inrow == boardSize - 1) {
+            j = boardSize - 2;
+            for (int i = 0; i < boardSize-1; i++) {
+                if (gameBoard[i][j] == x)
+                    gameBoard[i][j] = 'W';
+                j--;
+            }
+            return true;
+        }
+    }
+    inrow = 0;
+    j = boardSize-1;
+    for(int i = 1; i < boardSize; i++)
+    {
+        if (gameBoard[j][i] == x)
+            inrow++;
+        else
+            inrow = 0;
+        j--;
+        if (inrow == boardSize - 1) {
+            j = boardSize - 1;
+            for (int i = 1; i < boardSize; i++) {
+                if (gameBoard[i][j] == x)
+                    gameBoard[i][j] = 'W';
+                j--;
+            }
+            return true;
+        }
     }
     return false;
 }
@@ -347,4 +421,3 @@ void choosenField(GtkWidget *widget, gpointer data)
     }
     updateBoard();
 }
-
